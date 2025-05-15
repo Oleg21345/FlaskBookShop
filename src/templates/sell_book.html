@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Магазин книг{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="text-center mb-5">📚 Добро пожаловать в магазин книг!</h1>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        {% for books in book %}
+                {% if books.id %}
+                    {% include 'includes/sell_include/book_modal_sell.html' %}
+
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">{{ books.name_book }}</h5>
+                                <p class="card-text text-muted"
+                                   style="flex-grow: 1; overflow: hidden; text-overflow: ellipsis; max-height: 100px;">
+                                    {{ books.discription }}
+                                </p>
+                                <div class="mt-3">
+                                    <span class="badge bg-success fs-6">💰 {{ books.price }} ₴</span>
+                                </div>
+
+
+                                <div class="mt-2">
+                                    <button class="btn btn-outline-secondary btn-sm w-100" data-bs-toggle="modal"
+                                            data-bs-target="#SellingModal-{{ books.id }}">
+                                        Продати
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

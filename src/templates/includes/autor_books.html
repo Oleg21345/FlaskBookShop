@@ -1,0 +1,30 @@
+
+
+
+
+<div class="modal fade" id="SellingModal-{{ autor.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="SellingModalLabel">{{ autor.name_book }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-body">
+        <form method="post">
+          {{ selling_form.hidden_tag() }}
+
+          <h4 class="text-center"> Чи ви певні що хочете продати книгу {{ autor.name_book }} за {{ autor.price }} </h4>
+          <br>
+          <input id="sell_book" name="sell_book" type="hidden" value="{{ books.name_book }}">
+          {{ selling_form.submit(class="btn btn-outline-success w-50 mx-auto d-block") }}
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+        <button type="button" class="btn btn-primary">Так</button>
+      </div>
+    </div>
+  </div>
+</div>

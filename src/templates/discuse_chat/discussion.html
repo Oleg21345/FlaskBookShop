@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Чат
+{% endblock %}
+
+{% block content %}
+
+<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background-color: #f5f5f5;
+    }
+
+    .chat-page {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background-color: #fff;
+    }
+
+    .chat-header {
+        background-color: #3498db;
+        color: white;
+        padding: 16px;
+        font-size: 20px;
+        text-align: center;
+        flex-shrink: 0;
+    }
+
+    #chat-box {
+        flex: 1;
+        padding: 20px;
+        overflow-y: auto;
+        background-color: #f9f9f9;
+        margin-bottom: 70px; /* залишає місце для форми */
+    }
+
+    #chat-box p {
+        margin: 10px 0;
+        font-size: 16px;
+    }
+
+    .chat-form-wrapper {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: #fff;
+        border-top: 1px solid #ccc;
+        padding: 10px 16px;
+        display: flex;
+        gap: 10px;
+        z-index: 10;
+    }
+
+    #message {
+        flex: 1;
+        padding: 10px 14px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        outline: none;
+    }
+
+    #chat-form button {
+        background-color: #3498db;
+        color: white;
+        border: none;
+        padding: 10px 18px;
+        border-radius: 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+        .chat-header {
+            font-size: 18px;
+        }
+
+        #message {
+            font-size: 15px;
+        }
+
+        #chat-form button {
+            font-size: 15px;
+        }
+    }
+</style>
+
+<div class="chat-page">
+    <div class="chat-header">Обговорення книг — Привіт, {{ username }}!</div>
+
+    <div id="chat-box">
+        {% for msg in message %}
+            <p><strong>{{ msg.username }}:</strong> {{ msg.user_mess }}</p>
+        {% endfor %}
+    </div>
+
+    <form id="chat-form" class="chat-form-wrapper">
+        <input type="text" id="message" placeholder="Напиши повідомлення..." autocomplete="off" required>
+        <button type="submit">Надіслати</button>
+    </form>
+</div>
+
+<script src="https://cdn.socket.io/4.6.1/socket.io.min.js"
+        integrity="sha384-fzW3tZY1YI4Avrnv7ut4ZmN0IaqebGhfQG0Rt4O7GBNzpVyCgNQyyWR7zjqgIvfK"
+        crossorigin="anonymous"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const username = "{{ username }}";
+        const socket = io();
+
+        const form = document.getElementById("chat-form");
+        const input = document.getElementById("message");
+        const chatBox = document.getElementById("chat-box");
+
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            const msg = input.value.trim();
+            if (msg !== "") {
+                socket.emit("message", {
+                    msg: msg,
+                    username: username
+                });
+                input.value = "";
+            }
+        });
+
+        socket.on("message", function(data) {
+            const p = document.createElement("p");
+            p.innerHTML = `<strong>${data.username || "Anonymous"}:</strong> ${data.msg}`;
+            chatBox.appendChild(p);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        });
+
+        // автопрокрутка при завантаженні
+        chatBox.scrollTop = chatBox.scrollHeight;
+    });
+</script>
+
+{% endblock %}

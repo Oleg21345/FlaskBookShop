@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Реєстрація{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h2>Реєстрація</h2>
+    <form method="post">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            {{ form.username.label(class="form-label") }}
+            {{ form.username(class="form-control", placeholder="Ім'я") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.age.label(class="form-label") }}
+            {{ form.age(class="form-control", placeholder="Роки") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.password_main.label(class="form-label") }}
+            {{ form.password_main(class="form-control", placeholder="Пароль") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.password_conf.label(class="form-label") }}
+            {{ form.password_conf(class="form-control", placeholder="Підтвердити пароль") }}
+        </div>
+
+        <div class="mb-3 d-flex justify-content-center">
+            {{ form.submit(class="btn btn-primary btn-block center") }}
+        </div>
+
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Пост{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+    <h2>Пост книги</h2>
+    <form method="post">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            {{ form.name_book.label(class="form-label") }}
+            {{ form.name_book(class="form-control", placeholder="Назва Книги") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.discription.label(class="form-label") }}
+            {{ form.discription(class="form-control", placeholder="Опис") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.price.label(class="form-label") }}
+            {{ form.price(class="form-control", placeholder="Ціна") }}
+        </div>
+
+        <div class="mb-3 d-flex justify-content-center">
+            {{ form.submit(class="btn btn-primary btn-block center") }}
+        </div>
+
+
+    </form>
+</div>
+
+
+{% endblock %}

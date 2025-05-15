@@ -1,0 +1,54 @@
+<div class="modal fade" id="exampleModal-{{ books.id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{ books.name_book }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{ books.discription }}
+            </div>
+            <div class="modal-footer">
+                <a href="{{ url_for('discussion') }}" class="btn btn-info">
+                    Перейти в обговорення
+                </a>
+
+
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="BuyModal-{{ books.id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="BuyModalLabel">{{ books.name_book }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-body">
+                <form method="post">
+                    {{ buy_form.hidden_tag() }}
+
+                    <h4 class="text-center"> Чи ви певні що хочете купити книгу {{ books.name_book }} за {{ books.price
+                        }} </h4>
+                    <br>
+                    <input id="buy_book" name="buy_book" type="hidden" value="{{ books.name_book }}">
+                    {{ buy_form.submit(class="btn btn-outline-success w-50 mx-auto d-block") }}
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+
+                <button type="button" class="btn btn-primary">Так</button>
+            </div>
+        </div>
+    </div>
+</div>
+
